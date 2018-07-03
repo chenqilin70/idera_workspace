@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/maven_repository/pom.xml" />
+        <option value="$PROJECT_DIR$/export_es/pom.xml" />
+        <option value="$PROJECT_DIR$/export_to_excel/pom.xml" />
+        <option value="$PROJECT_DIR$/es17_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/catcher_simulation/pom.xml" />
+        <option value="$PROJECT_DIR$/shunyi_demo/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

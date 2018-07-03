@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/hadoop"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+              http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd"
+             default-autowire="byName">
+    <context:property-placeholder location="classpath:config.properties" />
+    <configuration>
+        fs.default.name=${hd.fs}
+        mapred.job.tracker=${hd.mr}
+    </configuration>
+
+    <!-- This will throw a NPE at the end of running the app that should be ignored
+
+         To avoid this, run against the stand-alone server, use the command line
+
+         hive -hiveconf fs.default.name=hdfs://localhost:9000 -hiveconf mapred.job.tracker=localhost:9001
+
+         -->
+
+    <hive-server port="${hive.port}" auto-startup="true"/>
+
+    <hive-client-factory host="${hive.host}" port="${hive.port}"/>
+
+    <hive-template id="hiveTemplate"/>
+</beans:beans>
