@@ -8,11 +8,11 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 public enum DataType {
-    CPWS("cpws","裁判文书")
-    ,ZXGG("zxgg","执行公告")
-    ,SX("shixin","失信公告")
-    ,KTGG("ktgg","开庭公告")
-    ,FYGG("fygg","法院公告")
+    CPWS("cpws","裁判文书"  )
+    ,ZXGG("zxgg","执行公告"  )
+    ,SX("shixin","失信公告"  )
+    ,KTGG("ktgg","开庭公告"  )
+    ,FYGG("fygg","法院公告"  )
     ,AJLC("ajlc","案件流程")
     ,BGT("bgt","曝光台")
     ,AJCL("anjianparty","案件串联");

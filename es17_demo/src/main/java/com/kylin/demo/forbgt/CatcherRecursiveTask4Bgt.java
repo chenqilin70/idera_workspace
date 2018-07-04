@@ -1,8 +1,6 @@
-package com.kylin.demo.util;
+package com.kylin.demo.forbgt;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.kylin.demo.enums.DataType;
+import com.kylin.demo.util.ESClient;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -12,15 +10,15 @@ import java.io.OutputStream;
 import java.util.*;
 import java.util.concurrent.RecursiveTask;
 
-public class CatcherRecursiveTask extends RecursiveTask<List<File>> {
-    private static final int THREAD_HOLD = 1000;
+public class CatcherRecursiveTask4Bgt extends RecursiveTask<List<File>> {
+    private static final int THREAD_HOLD = 2000;
     private  final String TEMP_DIR;
     /*private CatcherHttpClient httpClient=new CatcherHttpClient();*/
-    private ESClient esClient;
+    private ESClient4Bgt esClient;
     private int start;
     private int end;
 
-    public CatcherRecursiveTask(int start, int end, ESClient esClient,String path){
+    public CatcherRecursiveTask4Bgt(int start, int end, ESClient4Bgt esClient, String path){
         this.start = start;
         this.end = end;
         this.esClient=esClient;
@@ -34,7 +32,10 @@ public class CatcherRecursiveTask extends RecursiveTask<List<File>> {
         boolean canCompute = (end - start) <= THREAD_HOLD;
         if(canCompute){
             StringBuffer lines=new StringBuffer("");
-            List<Map<String, Object>> sources = esClient.getSource(start, (end - start) + 1);
+            /*int size=(end - start) + 1;
+            size/4
+            esClient.openScroll()*/
+            List<Map<String, Object>> sources = esClient.getSource(start, "sdfsdf");
 
             for(Map<String,Object> m:sources){
                 TreeMap<String, Object> t = new TreeMap<>(m);
@@ -67,8 +68,8 @@ public class CatcherRecursiveTask extends RecursiveTask<List<File>> {
             fileList.add(file);
         }else{
             int middle = (start + end) / 2;
-            CatcherRecursiveTask left = new CatcherRecursiveTask(start,middle,esClient,TEMP_DIR);
-            CatcherRecursiveTask right = new CatcherRecursiveTask(middle+1,end,esClient,TEMP_DIR);
+            CatcherRecursiveTask4Bgt left = new CatcherRecursiveTask4Bgt(start,middle,esClient,TEMP_DIR);
+            CatcherRecursiveTask4Bgt right = new CatcherRecursiveTask4Bgt(middle+1,end,esClient,TEMP_DIR);
             //执行子任务
             left.fork();
             right.fork();

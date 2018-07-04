@@ -1,30 +1,26 @@
-package com.kylin.demo.util;
+package com.kylin.demo.forbgt;
 
-import com.kylin.demo.enums.DataType;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.action.count.CountResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.aggregations.Aggregation;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogram;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class ESClient {
+public class ESClient4Bgt {
     private  Client client;
     private String dataType;
 
-    public ESClient( String dataType) {
+    public ESClient4Bgt(String dataType) {
         this.dataType = dataType;
         Settings settings = ImmutableSettings.settingsBuilder()
                 .put("cluster.name", "shunyi-office-venus") .put("client.transport.sniff", true)
@@ -51,8 +47,9 @@ public class ESClient {
         return  sb.toString();
     }
 
-    public  List<Map<String,Object>> getSource(int start, int size){
-        SearchResponse searchResponse = client.prepareSearch(dataType).setTypes(dataType).setFrom(start).setSize(size).execute().actionGet();
+    public  List<Map<String,Object>> getSource( int size,String scrollId){
+        SearchResponse searchResponse = client.prepareSearchScroll(scrollId).setScroll(new TimeValue(20000)).execute().actionGet();
+
         List<Map<String,Object>> list=new ArrayList<>();
 
         for(SearchHit h:searchResponse.getHits().getHits()){
@@ -60,9 +57,17 @@ public class ESClient {
         }
         if(list.size()==0){
             System.out.println("请求失败   递归一次");
-            list=getSource(start,size);
+            list=getSource(size,scrollId);
         }
         return list;
+
+    }
+    public  String openScroll( int size){
+        SearchResponse searchResponse = client
+                .prepareSearch(dataType).setSearchType(SearchType.SCAN)
+                .setSize(size).setScroll(new TimeValue(20000)).execute()
+                .actionGet();
+        return searchResponse.getScrollId();
 
     }
 
