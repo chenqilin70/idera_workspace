@@ -7,9 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="catcher_simulation" />
-        <module name="es17_demo" />
         <module name="export_es" />
         <module name="export_to_excel" />
+        <module name="hive_udf" />
         <module name="maven_repository" />
         <module name="shunyi_demo" />
       </profile>
@@ -20,6 +20,8 @@
       <module name="export_es" target="1.7" />
       <module name="export_into_excel" target="1.5" />
       <module name="export_to_excel" target="1.7" />
+      <module name="hive_udb" target="1.7" />
+      <module name="hive_udf" target="1.7" />
       <module name="maven_repository" target="1.5" />
       <module name="maven_test" target="1.5" />
       <module name="shunyi_demo" target="1.7" />

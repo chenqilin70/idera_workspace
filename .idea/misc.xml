@@ -9,7 +9,13 @@
         <option value="$PROJECT_DIR$/es17_demo/pom.xml" />
         <option value="$PROJECT_DIR$/catcher_simulation/pom.xml" />
         <option value="$PROJECT_DIR$/shunyi_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/hive_udf/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/es17_demo/hive_udb/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
