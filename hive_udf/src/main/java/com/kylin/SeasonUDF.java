@@ -3,17 +3,22 @@ package com.kylin;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.io.Text;
+import org.junit.Test;
+
 import java.util.Date;
 
 public class SeasonUDF extends UDF {
 
     public String evaluate(String t){
-        String tstr=t.toString();
+        if(t!=null){
+            t=t.trim();
+        }
+
         String result="";
-        if(t==null || StringUtils.isBlank(tstr) || tstr.equals("null")){
+        if(t==null || StringUtils.isBlank(t.trim()) || t.equals("null")){
             result= "不明";
         }else{
-            Date d=new Date(Long.parseLong(tstr));
+            Date d=new Date(Long.parseLong(t));
             int m=d.getMonth()+1;
             if(m<=3){
                 result="第一季度";
@@ -26,7 +31,13 @@ public class SeasonUDF extends UDF {
             }
 
         }
-        System.out.println(t);
+        System.out.println(t==null?-1:t.length());
+
+
         return  result;
+    }
+    @Test
+    public void test(){
+        System.out.println(evaluate("1500825600000"));;
     }
 }

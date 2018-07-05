@@ -41,7 +41,7 @@ public class ESClient4Bgt {
         SearchResponse searchResponse = client.prepareSearch(dataType).setTypes(dataType).setFrom(0).setSize(1).execute().actionGet();
         StringBuffer sb=new StringBuffer("create table "+dataType+"(\n");
         sb.append(StringUtils.join(new TreeMap<String ,Object>(searchResponse.getHits().getHits()[0].getSource()).keySet(),"  string ,\n").concat("  string)"));
-        sb.append("row format delimited\n" +"fields terminated by '\\001';\n") ;
+        sb.append("row format delimited\n" +"fields terminated by '\\007\\006\\005';\n") ;
         sb.append("load data local inpath '/home/fahai/catcher_temp_dir/"+dataType+"/*' into table "+dataType+";");
 
         return  sb.toString();
