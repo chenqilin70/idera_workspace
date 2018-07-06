@@ -1,0 +1,198 @@
+
+curl -H 'Content-Type:application/json' -X GET 'http://192.168.5.138:9200/animal/pig/_search?_source=color,name&pretty'
+
+curl -H 'Content-Type:application/json' -X GET 'http://192.168.6.41:9200/jyyc/jyyc/_search?pretty'
+
+
+curl -H 'Content-Type:application/json' -X GET 'http://localhost:9200/accounts/person/_search?pretty' -d '{
+	"query":{
+		"match":{
+		
+			"desc":"工程师"
+		}
+	}
+
+}'
+
+curl -H 'Content-Type:application/json' -X GET 'http://http://192.168.6.41:9200/cows/cows/_search?pretty' -d '{
+	"query":{
+		"match":{
+
+			"sorttime":"民事判决书"
+		}
+	}
+
+}'
+
+
+
+
+
+
+curl -H 'Content-Type:application/json' -X GET 'http://localhost:9200/accounts/person/_search?pretty' -d '{
+	"query":{
+		"bool":{
+				"filter":{
+					"range":{
+						"age":{
+							"gt":20
+						}
+					}
+				},
+				"must":{
+					"match":{
+
+						"desc":"工程师"
+					}
+				}
+
+			}
+	}
+}'
+
+curl -H 'Content-Type:application/json' -X GET 'http://localhost:9200/accounts/person/_search?pretty' -d '{
+	"query":{
+		"match":{
+			"title":"Java"
+		}
+}
+}'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+curl -H 'Content-Type:application/json' -X POST 'http://localhost:9200/accounts/person/' -d '{
+	"age" : 23,
+           "user" : "Lucy",
+          "title" : "Jave devaloper",
+          "desc" : "Jave开发工程师"
+}'
+
+
+ChmZRWQBf1x70Alqs3Qe
+DBmaRWQBf1x70AlqPXSx
+DRmaRWQBf1x70AlqdXRG
+kHQ9P2QB5jDQU12h6_wK
+CBmYRWQBf1x70Alqh3TD
+CRmZRWQBf1x70AlqHHT7
+1
+CxmZRWQBf1x70Alq6HS1
+
+
+
+curl -H  'Content-Type:application/json' -X DELETE 'http://localhost:9200/accounts/_mapping/person' -d '
+{
+    "person": {
+        "properties": {
+            "test": {
+                "type":     "integer"
+            }
+        }
+    }
+}
+'
+
+
+
+curl -H 'Content-Type:application/json' -X GET 'http://localhost:9200/accounts/person/_search?pretty' -d '{
+    "aggs" : {
+        "title_count" : {
+            "cardinality" : {
+                "field" : "title"
+            }
+        }
+    }
+}'
+
+curl -H 'Content-Type:application/json' -X PUT 'http://localhost:9200/accounts/_mapping/person/' -d '{
+{
+  "properties": {
+      "user": {
+	      "type":     "text",
+	      "fielddata": true
+    }
+  }
+}'
+
+
+
+curl -H 'Content-Type:application/json' -X PUT 'http://localhost:9200/animal/_mapping/pig/' -d '
+{
+
+	    "pig": {
+	      "properties": {
+		"color": {
+		  "analyzer": "ik_max_word",
+		  "type": "text",
+		  "fielddata":true
+		},
+		"name": {
+		  "analyzer": "ik_max_word",
+		  "type": "text"
+		},
+		"native": {
+		  "analyzer": "ik_max_word",
+		  "type": "text"
+		},
+		"age": {
+		  "type": "integer"
+		}
+	    }
+	  }
+
+}
+'
+
+
+{
+    "aggs" : {
+        "age_stats" : { "extended_stats" : { "field" : "age" } }
+    }
+}
+
+curl -H 'Content-Type:application/json' -X PUT 'http://localhost:9200/animal/pig/' -d '{
+	"color" : "粉色，绿色",
+           "name" : "Merry",
+          "age" : 50,
+          "native" : "中国广州"
+}'
+
+
+curl -H 'Content-Type:application/json' -X POST 'http://localhost:9200/animal/pig/AAAAA/_update' -d '{
+          "doc":{
+		"age" : 55
+	  }
+}'
+
+
+curl -H 'Content-Type:application/json' -X POST 'http://localhost:9200/animal/pig/AAAAA/_update' -d'
+{
+   "script" : "ctx._source.age+=1"
+}'
+
+curl -H 'Content-Type:application/json' -X POST 'http://192.168.5.138:9200/animal/pig/AAAAA/_update' -d '{
+	"doc":{
+			"interest":{
+			"item":"running",
+			"level":"very"
+		}
+	}
+}'
+
+
+curl -H 'Content-Type:application/json' -X POST 'http://192.168.5.138:9200/_bulk' -d 
+'{ "create":  { "_index": "animal", "_type": "pig", "_id": "AAAAA" }}
+{ "name":    "Toney","age":12 }
+{ "update": { "_index": "animal", "_type": "pig", "_id": "AAAAA", "_retry_on_conflict" : 3} }
+{ "doc" : {"name" : "Tobe"} }'

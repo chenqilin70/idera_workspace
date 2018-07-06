@@ -1,0 +1,98 @@
+add jar /home/fahai/hive_udf-1.0-SNAPSHOT.jar;
+create temporary function season_temp as 'com.kylin.SeasonUDF';
+select season_temp(sorttime) from cpws 
+
+
+beeline
+!connect jdbc:hive2://localhost:10000
+fahai
+fahai!@#456
+use fahai;
+
+
+1499616000000
+
+
+CREATE USER 'fahai'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON kylin.* TO 'fahai'@'%' IDENTIFIED BY '111111';
+
+
+
+GRANT ALL ON scm.* TO 'scm'@'%' IDENTIFIED BY '111111';
+
+
+
+./scm_prepare_database.sh mysql -uroot -p --scm-host localhost scm scm 111111
+
+
+
+
+create database scm	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database amon	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database rman	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database hue	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database metastore  DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database sentry	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database nav	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database navms	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+create database oozie	   DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+
+
+CREATE USER 'scm'@'%' IDENTIFIED BY '111111';
+CREATE USER 'amon'@'%' IDENTIFIED BY '111111';
+CREATE USER 'rman'@'%' IDENTIFIED BY '111111';
+CREATE USER 'hue'@'%' IDENTIFIED BY '111111';
+CREATE USER 'hive'@'%' IDENTIFIED BY '111111';
+CREATE USER 'sentry'@'%' IDENTIFIED BY '111111';
+CREATE USER 'nav'@'%' IDENTIFIED BY '111111';
+CREATE USER 'navms'@'%' IDENTIFIED BY '111111';
+CREATE USER 'oozie'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  scm.* TO 'scm'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  amon.* TO 'amon'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  rman.* TO 'rman'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  hu.* TO 'hue'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  metastore.* TO 'hive'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  sentry.* TO 'sentry'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  nav.* TO 'nav'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  navms.* TO 'navms'@'%' IDENTIFIED BY '111111';
+GRANT ALL ON  oozie.* TO 'oozie'@'%' IDENTIFIED BY '111111';
+
+
+
+
+
+
+DEVICE=ens33
+BOOTPROTO=static
+IPADDR=192.168.71.101
+NETMASK=255.255.255.0
+IPV6INIT=no
+NM_CONTROLLED=yes
+ONBOOT=yes
+TYPE=Ethernet
+
+
+
+
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=dhcp
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+DEVICE=ens33
+ONBOOT=yes
+
+NAME=ens33
+UUID=49fd90d9-4153-491b-bdbc-a253b1691a41
+
+
+
+
+
+"C:\Program Files\MySQL\MySQL Server 5.5\bin\mysql.exe" "--defaults-file=C:\Program Files\MySQL\MySQL Server 5.5\my.ini" "-ukylin" "-p"
