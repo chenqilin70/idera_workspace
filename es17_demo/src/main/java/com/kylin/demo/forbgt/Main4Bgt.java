@@ -61,7 +61,7 @@ public class Main4Bgt {
                 .addTransportAddress(new InetSocketTransportAddress("192.168.6.41", 9300))
                 .addTransportAddress(new InetSocketTransportAddress("192.168.6.42", 9300))
                 .addTransportAddress(new InetSocketTransportAddress("192.168.6.43", 9300));
-         datatype="cpws";
+         datatype="bgt";
          splitChar="\001";
 
         SearchResponse searchResponse = client.prepareSearch(datatype).setTypes(datatype).setFrom(0).setSize(1).execute().actionGet();
@@ -74,7 +74,7 @@ public class Main4Bgt {
     public static void main(String[] args) {
 
         SearchResponse scr1 = client.prepareSearch(datatype).setSearchType(SearchType.SCAN)
-                .setSize(1000).setScroll(new TimeValue(20000)).execute()
+                .setSize(100).setScroll(new TimeValue(20000)).execute()
                 .actionGet();
         long total = scr1.getHits().getTotalHits();
         int pages = (int) (total / (5 * 100));
@@ -125,7 +125,8 @@ public class Main4Bgt {
         StringBuffer sb=new StringBuffer("create table "+datatype+"(\n");
         sb.append(StringUtils.join(cols,"  string ,\n").concat("  string)"));
         sb.append("row format delimited\n" +"fields terminated by '\\001';\n") ;
-        sb.append("load data local inpath '/home/fahai/catcher_temp_dir/"+datatype+"/*' into table "+datatype+";");
+        sb.append("load data local inpath '/home/fahai/catcher_temp_dir/"+datatype+"/*' into table "+datatype+";\n");
+        sb.append("select count(*) from "+datatype+";\n");
         System.out.println(sb.toString());
 
 

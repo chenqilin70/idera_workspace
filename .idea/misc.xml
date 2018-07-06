@@ -8,8 +8,8 @@
         <option value="$PROJECT_DIR$/export_to_excel/pom.xml" />
         <option value="$PROJECT_DIR$/es17_demo/pom.xml" />
         <option value="$PROJECT_DIR$/catcher_simulation/pom.xml" />
-        <option value="$PROJECT_DIR$/shunyi_demo/pom.xml" />
         <option value="$PROJECT_DIR$/hive_udf/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_hive/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
